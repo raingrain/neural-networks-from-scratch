@@ -1,2 +1,1 @@
-# neural-networks-from-scratch
-手写神经网络
+# 🎉[Neural Networks from Scratch](https://github.com/raingrain/neural-networks-from-scratch)🎉
