@@ -1,12 +1,14 @@
-from nnfs import init
+import nnfs
+
 from nnfs.datasets import spiral_data
 
 from src.Activation.ActivationReLU import Activation_ReLU
 from src.Activation.ActivationSoftmax import Activation_Softmax
 from src.Layer.LayerDense import Layer_Dense
+from src.Loss.LossCategoricalCrossentropy import Loss_CategoricalCrossentropy
 
 # 锁定随机种子，使得数据固定便于调试
-init()
+nnfs.init()
 
 # 创建数据集
 X, y = spiral_data(samples=100, classes=3)
@@ -22,6 +24,9 @@ dense2 = Layer_Dense(3, 3)
 
 # 创建Softmax激活（用于密集层）：
 activation2 = Activation_Softmax()
+
+# 创建损失函数
+loss_function = Loss_CategoricalCrossentropy()
 
 # 通过该层向前传递我们的训练数据
 dense1.forward(X)
@@ -40,3 +45,10 @@ activation2.forward(dense2.output)
 
 # 让我们看看前几个示例的输出：
 print(activation2.output[:5])
+
+# 继续向前传播
+# 这里取第二个稠密层的输出并返回损耗
+loss = loss_function.calculate(activation2.output, y)
+
+# 打印损失值
+print('loss:', loss)
