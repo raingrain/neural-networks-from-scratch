@@ -2,14 +2,14 @@ import nnfs
 
 from nnfs.datasets import spiral_data
 
-from src.Accuracy.AccuracyCategorical import Accuracy_Categorical
-from src.Activation.ActivationReLU import Activation_ReLU
-from src.Activation.ActivationSoftmax import Activation_Softmax
-from src.Layer.LayerDense import Layer_Dense
-from src.Layer.LayerDropout import Layer_Dropout
-from src.Loss.LossCategoricalCrossentropy import Loss_CategoricalCrossentropy
-from src.Model import Model
-from src.Optimizer.OptimizerAdam import Optimizer_Adam
+from src.Accuracy.AccuracyCategorical import AccuracyCategorical
+from src.Activation.ActivationReLU import ActivationReLU
+from src.Activation.ActivationSoftmax import ActivationSoftmax
+from src.Layer.LayerDense import LayerDense
+from src.Layer.LayerDropout import LayerDropout
+from src.Loss.LossCategoricalCrossEntropy import LossCategoricalCrossEntropy
+from src.Model.Model import Model
+from src.Optimizer.OptimizerAdam import OptimizerAdam
 
 # Fixed random seeds make data consistent
 nnfs.init()
@@ -23,17 +23,17 @@ model = Model()
 
 # Add layers
 model.add(
-    Layer_Dense(2, 512, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4))
-model.add(Activation_ReLU())
-model.add(Layer_Dropout(0.1))
-model.add(Layer_Dense(512, 3))
-model.add(Activation_Softmax())
+    LayerDense(2, 512, weight_regularizer_l2=5e-4, bias_regularizer_l2=5e-4))
+model.add(ActivationReLU())
+model.add(LayerDropout(0.1))
+model.add(LayerDense(512, 3))
+model.add(ActivationSoftmax())
 
 # Set loss, optimizer and accuracy objects
 model.set(
-    loss=Loss_CategoricalCrossentropy(),
-    optimizer=Optimizer_Adam(learning_rate=0.05, decay=5e-5),
-    accuracy=Accuracy_Categorical()
+    loss=LossCategoricalCrossEntropy(),
+    optimizer=OptimizerAdam(learning_rate=0.05, decay=5e-5),
+    accuracy=AccuracyCategorical()
 )
 
 # Finalize the model
