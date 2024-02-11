@@ -2,7 +2,7 @@ import numpy as np
 
 
 # Adam optimizer
-class Optimizer_Adam:
+class OptimizerAdam:
 
     # Initialize optimizer - set settings
     def __init__(self, learning_rate=0.001, decay=0., epsilon=1e-7, beta_1=0.9,
@@ -30,11 +30,11 @@ class Optimizer_Adam:
             layer.weight_cache = np.zeros_like(layer.weights)
             layer.bias_momentums = np.zeros_like(layer.biases)
             layer.bias_cache = np.zeros_like(layer.biases)
-        # Update momentum  with current gradients
+        # Update momentum with current gradients
         layer.weight_momentums = self.beta_1 * layer.weight_momentums + (
-                1 - self.beta_1) * layer.dweights
+                1 - self.beta_1) * layer.d_weights
         layer.bias_momentums = self.beta_1 * layer.bias_momentums + (
-                1 - self.beta_1) * layer.dbiases
+                1 - self.beta_1) * layer.d_biases
         # Get corrected momentum
         # self.iteration is 0 at first pass
         # and we need to start with 1 here
@@ -44,9 +44,9 @@ class Optimizer_Adam:
                 1 - self.beta_1 ** (self.iterations + 1))
         # Update cache with squared current gradients
         layer.weight_cache = self.beta_2 * layer.weight_cache + (
-                1 - self.beta_2) * layer.dweights ** 2
+                1 - self.beta_2) * layer.d_weights ** 2
         layer.bias_cache = self.beta_2 * layer.bias_cache + (
-                1 - self.beta_2) * layer.dbiases ** 2
+                1 - self.beta_2) * layer.d_biases ** 2
         # Get corrected cache
         weight_cache_corrected = layer.weight_cache / (
                 1 - self.beta_2 ** (self.iterations + 1))

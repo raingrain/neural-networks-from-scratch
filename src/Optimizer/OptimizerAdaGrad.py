@@ -1,8 +1,8 @@
 import numpy as np
 
 
-# Adagrad optimizer
-class Optimizer_Adagrad:
+# AdaGrad optimizer
+class OptimizerAdaGrad:
 
     # Initialize optimizer - set settings
     def __init__(self, learning_rate=1., decay=0., epsilon=1e-7):
@@ -26,14 +26,14 @@ class Optimizer_Adagrad:
             layer.weight_cache = np.zeros_like(layer.weights)
             layer.bias_cache = np.zeros_like(layer.biases)
         # Update cache with squared current gradients
-        layer.weight_cache += layer.dweights ** 2
-        layer.bias_cache += layer.dbiases ** 2
+        layer.weight_cache += layer.d_weights ** 2
+        layer.bias_cache += layer.d_biases ** 2
         # Vanilla SGD parameter update + normalization
         # with square rooted cache
-        layer.weights += -self.current_learning_rate * layer.dweights / (
-                    np.sqrt(layer.weight_cache) + self.epsilon)
-        layer.biases += -self.current_learning_rate * layer.dbiases / (
-                    np.sqrt(layer.bias_cache) + self.epsilon)
+        layer.weights += -self.current_learning_rate * layer.d_weights / (
+                np.sqrt(layer.weight_cache) + self.epsilon)
+        layer.biases += -self.current_learning_rate * layer.d_biases / (
+                np.sqrt(layer.bias_cache) + self.epsilon)
 
     # Call once after any parameter updates
     def post_update_params(self):

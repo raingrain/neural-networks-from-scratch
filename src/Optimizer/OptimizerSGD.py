@@ -2,7 +2,7 @@ import numpy as np
 
 
 # SGD optimizer
-class Optimizer_SGD:
+class OptimizerSGD:
 
     # Initialize optimizer - set settings,
     # learning rate of 1. is default for this optimizer
@@ -33,15 +33,15 @@ class Optimizer_SGD:
             # Build weight updates with momentum - take previous
             # updates multiplied by retain factor and update with
             # current gradients
-            weight_updates = self.momentum * layer.weight_momentums - self.current_learning_rate * layer.dweights
+            weight_updates = self.momentum * layer.weight_momentums - self.current_learning_rate * layer.d_weights
             layer.weight_momentums = weight_updates
             # Build bias updates
-            bias_updates = self.momentum * layer.bias_momentums - self.current_learning_rate * layer.dbiases
+            bias_updates = self.momentum * layer.bias_momentums - self.current_learning_rate * layer.d_biases
             layer.bias_momentums = bias_updates
         # Vanilla SGD updates (as before momentum update)
         else:
-            weight_updates = -self.current_learning_rate * layer.dweights
-            bias_updates = -self.current_learning_rate * layer.dbiases
+            weight_updates = -self.current_learning_rate * layer.d_weights
+            bias_updates = -self.current_learning_rate * layer.d_biases
         # Update weights and biases using either
         # vanilla or momentum updates
         layer.weights += weight_updates

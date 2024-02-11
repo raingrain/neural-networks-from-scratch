@@ -1,8 +1,8 @@
 import numpy as np
 
 
-# RMSprop optimizer
-class Optimizer_RMSprop:
+# RMSProp optimizer
+class OptimizerRMSProp:
 
     # Initialize optimizer - set settings
     def __init__(self, learning_rate=0.001, decay=0., epsilon=1e-7, rho=0.9):
@@ -28,14 +28,14 @@ class Optimizer_RMSprop:
             layer.bias_cache = np.zeros_like(layer.biases)
         # Update cache with squared current gradients
         layer.weight_cache = self.rho * layer.weight_cache + (
-                    1 - self.rho) * layer.dweights ** 2
+                    1 - self.rho) * layer.d_weights ** 2
         layer.bias_cache = self.rho * layer.bias_cache + (
-                    1 - self.rho) * layer.dbiases ** 2
+                    1 - self.rho) * layer.d_biases ** 2
         # Vanilla SGD parameter update + normalization
         # with square rooted cache
-        layer.weights += -self.current_learning_rate * layer.dweights / (
+        layer.weights += -self.current_learning_rate * layer.d_weights / (
                     np.sqrt(layer.weight_cache) + self.epsilon)
-        layer.biases += -self.current_learning_rate * layer.dbiases / (
+        layer.biases += -self.current_learning_rate * layer.d_biases / (
                     np.sqrt(layer.bias_cache) + self.epsilon)
 
     # Call once after any parameter updates

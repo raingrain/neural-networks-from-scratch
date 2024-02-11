@@ -3,21 +3,22 @@ import numpy as np
 
 # Softmax classifier - combined Softmax activation
 # and cross-entropy loss for faster backward step
-class Activation_Softmax_Loss_CategoricalCrossentropy():
+class ActivationSoftmaxLossCategoricalCrossEntropy:
+
+    def __init__(self):
+        self.d_inputs = None
 
     # Backward pass
-    def backward(self, dvalues, y_true):
+    def backward(self, d_values, y_true):
         # Number of samples
-        samples = len(dvalues)
-
+        samples = len(d_values)
         # If labels are one-hot encoded,
         # turn them into discrete values
         if len(y_true.shape) == 2:
             y_true = np.argmax(y_true, axis=1)
-
         # Copy so we can safely modify
-        self.dinputs = dvalues.copy()
+        self.d_inputs = d_values.copy()
         # Calculate gradient
-        self.dinputs[range(samples), y_true] -= 1
+        self.d_inputs[range(samples), y_true] -= 1
         # Normalize gradient
-        self.dinputs = self.dinputs / samples
+        self.d_inputs = self.d_inputs / samples

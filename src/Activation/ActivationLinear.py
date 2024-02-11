@@ -1,5 +1,10 @@
 # Linear activation
-class Activation_Linear:
+class ActivationLinear:
+
+    def __init__(self):
+        self.d_inputs = None
+        self.output = None
+        self.inputs = None
 
     # Forward pass
     def forward(self, inputs, training):
@@ -8,9 +13,9 @@ class Activation_Linear:
         self.output = inputs
 
     # Backward pass
-    def backward(self, dvalues):
-        # derivative is 1, 1 * dvalues = dvalues - the chain rule
-        self.dinputs = dvalues.copy()
+    def backward(self, d_values):
+        # derivative is 1, 1 * d_values = d_values - the chain rule
+        self.d_inputs = d_values.copy()
 
     # Calculate predictions for outputs
     def predictions(self, outputs):

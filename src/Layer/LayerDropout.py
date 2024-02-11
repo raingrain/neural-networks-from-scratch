@@ -2,10 +2,14 @@ import numpy as np
 
 
 # Dropout
-class Layer_Dropout:
+class LayerDropout:
 
     # Init
     def __init__(self, rate):
+        self.d_inputs = None
+        self.output = None
+        self.binary_mask = None
+        self.inputs = None
         # Store rate, we invert it as for example for dropout
         # of 0.1 we need success rate of 0.9
         self.rate = 1 - rate
@@ -25,6 +29,6 @@ class Layer_Dropout:
         self.output = inputs * self.binary_mask
 
     # Backward pass
-    def backward(self, dvalues):
+    def backward(self, d_values):
         # Gradient on values
-        self.dinputs = dvalues * self.binary_mask
+        self.d_inputs = d_values * self.binary_mask

@@ -2,7 +2,11 @@ import numpy as np
 
 
 # ReLU activation
-class Activation_ReLU:
+class ActivationReLU:
+
+    def __init__(self):
+        self.output = None
+        self.inputs = None
 
     # Forward pass
     def forward(self, inputs, training):
@@ -15,10 +19,9 @@ class Activation_ReLU:
     def backward(self, dvalues):
         # Since we need to modify original variable,
         # let's make a copy of values first
-        self.dinputs = dvalues.copy()
-
+        self.d_inputs = dvalues.copy()
         # Zero gradient where input values were negative
-        self.dinputs[self.inputs <= 0] = 0
+        self.d_inputs[self.inputs <= 0] = 0
 
     # Calculate predictions for outputs
     def predictions(self, outputs):

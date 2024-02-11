@@ -4,7 +4,7 @@ from src.Accuracy.Accuracy import Accuracy
 
 
 # Accuracy calculation for regression model
-class Accuracy_Regression(Accuracy):
+class AccuracyRegression(Accuracy):
 
     def __init__(self):
         # Create precision property

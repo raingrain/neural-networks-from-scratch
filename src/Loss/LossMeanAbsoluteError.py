@@ -4,24 +4,26 @@ from src.Loss.Loss import Loss
 
 
 # Mean Absolute Error loss
-class Loss_MeanAbsoluteError(Loss):  # L1 loss
+class LossMeanAbsoluteError(Loss):  # L1 loss
+
+    def __init__(self):
+        super().__init__()
+        self.d_inputs = None
 
     def forward(self, y_pred, y_true):
         # Calculate loss
         sample_losses = np.mean(np.abs(y_true - y_pred), axis=-1)
-
         # Return losses
         return sample_losses
 
     # Backward pass
-    def backward(self, dvalues, y_true):
+    def backward(self, d_values, y_true):
         # Number of samples
-        samples = len(dvalues)
+        samples = len(d_values)
         # Number of outputs in every sample
         # We'll use the first sample to count them
-        outputs = len(dvalues[0])
-
+        outputs = len(d_values[0])
         # Calculate gradient
-        self.dinputs = np.sign(y_true - dvalues) / outputs
+        self.d_inputs = np.sign(y_true - d_values) / outputs
         # Normalize gradient
-        self.dinputs = self.dinputs / samples
+        self.d_inputs = self.d_inputs / samples

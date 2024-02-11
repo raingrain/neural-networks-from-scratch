@@ -4,7 +4,7 @@ from src.Accuracy.Accuracy import Accuracy
 
 
 # Accuracy calculation for classification model
-class Accuracy_Categorical(Accuracy):
+class AccuracyCategorical(Accuracy):
 
     def __init__(self, *, binary=False):
         # Binary mode?
