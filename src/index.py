@@ -1,7 +1,7 @@
 import nnfs
 from nnfs.datasets import spiral_data
 
-from src.LayerDense.LayerDense import Layer_Dense
+from src.Layer.LayerDense.LayerDense import Layer_Dense
 
 # 锁定随机种子，使得数据固定便于调试
 nnfs.init()
