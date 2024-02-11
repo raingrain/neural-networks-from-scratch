@@ -19,4 +19,7 @@ class Layer_Dense:
     # 前向传播
     def forward(self, inputs):
         # 根据输入、权重和偏差计算输出值
+        # 考虑一个输入数据构成的矩阵，每一行为一组dataSet，整个矩阵为一个Batch
+        # 对于权重矩阵，每一列对应一个神经元，每一行是当前列对应神经元对应输入的权重
+        # 对于输出矩阵，每一行是一组dataSet的output，所有的构成一个Batch的输出
         self.output = np.dot(inputs, self.weights) + self.biases
